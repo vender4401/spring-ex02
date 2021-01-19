@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 
 public interface BoardMapper {
 
 //	@Select("SELECT * FROM tbl_board WHERE bno > 0")
 	public List<BoardVO> getlist();
+	
+	public List<BoardVO> getlistWithPaging(Criteria cri);
 	
 	public void insert(BoardVO board);
 	

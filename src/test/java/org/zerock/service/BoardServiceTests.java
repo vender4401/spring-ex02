@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 import org.zerock.mapper.BoardMapper;
 import org.zerock.mapper.BoardMapperTests;
 
@@ -50,10 +51,14 @@ public class BoardServiceTests {
 	
 	@Test
 	public void testGetlist() {
-		List<BoardVO> list = service.getlist();
+//		List<BoardVO> list = service.getlist();
+		
+		Criteria cri = new Criteria(2, 10);
+		List<BoardVO> list = service.getlist(cri);
 		
 		assertNotNull(list);
 		assertNotEquals(list.size(), 0);
+		assertEquals(list.size(), 10);
 	}
 	
 	

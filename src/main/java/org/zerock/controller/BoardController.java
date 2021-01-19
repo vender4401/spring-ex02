@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
+import org.zerock.domain.PageDTO;
 import org.zerock.service.BoardService;
 
 import lombok.AllArgsConstructor;
@@ -28,17 +31,34 @@ public class BoardController {
 	// 211 page 표
 	
 //	@RequestMapping(value="/list", method = RequestMethod.GET)
-	@GetMapping("/list") 
+//	@GetMapping("/list") 
 	// 메소드가 void 타입의 경우 return 경로가 view(jsp)가 됨
 	// 이 메소드는 (/board/list) -> /board/list.jsp
-	public void list(Model model) {
-		log.info("******************* list *******************");
-		List<BoardVO> list = service.getlist();
+//	public void list(Model model) {
+//		log.info("***** list, 누군가 접속 or 새로고침 *****");
+//		List<BoardVO> list = service.getlist();
+//		model.addAttribute("list", list);		
+//	}
+	
+	@GetMapping("/list")
+	public void list(Criteria cri, Model model) {
+		List<BoardVO> list = service.getlist(cri);
+		int total = 500;
+		
+		PageDTO dto = new PageDTO(cri, total);
+		
 		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", dto);
 		
 	}
 	
 //	@RequestMapping(value="/register", method = RequestMethod.POST)
+	
+	@GetMapping("/register")
+	public void register() {
+		
+	}
+	
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {
 		
@@ -49,25 +69,63 @@ public class BoardController {
 		
 		service.register(board);
 		
+		
 		rttr.addFlashAttribute("result", board.getBno());
+		log.info("***** register, 누군가 게시물 작성 : " + board.getBno());
+//		return "/board/list";
+		return "redirect:/board/list";
+	}
+	
+	//
+	@GetMapping({"/get", "/modify"})
+	public void get(Long bno, Model model) {
+		/** 예전 코드 (스프링 없이) 
+		String boardNum = request.getParameter("num");
+		int num = Integer.parseInt(boardNum);
+		
+		BoardVO vo = service.get((long) num);
+		
+		request.setAttribute("board", vo);
+		
+		request.getRequestDispatcher(".jsp").forward();
+		*/
+		
+		log.info("게시물 클릭(read) :" + bno);
+		BoardVO vo = service.get(bno);
+		
+		// 쿼리문으로 붙어서 감
+		model.addAttribute("board", vo);
+	}
+	
+	@PostMapping("/remove")
+	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+		
+		if (service.remove(bno)) {
+			rttr.addFlashAttribute("resultRemove", bno);
+			log.info("***** register, 누군가 게시물 삭제 : " + bno);
+		}
 		
 		return "redirect:/board/list";
 	}
 	
-	@GetMapping("/get")
-	public void get() {
-		
-	}
-	
-	@PostMapping("/remove")
-	public int remove() {
-		return 0;
-	}
-	
 	@PostMapping("/modify")
-	public String modify() {
-		return null;
+	public String modify(BoardVO board, RedirectAttributes rttr) {
+		
+		if(service.modify(board)) {
+			rttr.addFlashAttribute("resultModify", board.getBno());		
+			log.info("***** register, 누군가 게시물 수정 : " + board.getBno());
+		}		
+		 
+		return "redirect:/board/list";
 	}
+//	
+//	@GetMapping("modify")
+//	public void modify(Long bno, Model model) {
+//		BoardVO vo = service.get(bno);
+//		
+//		model.addAttribute("board", vo);
+//	}
+//	
 }
 
 

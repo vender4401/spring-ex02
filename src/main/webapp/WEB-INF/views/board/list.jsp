@@ -60,7 +60,7 @@
 </head>
 <body>
 
-result : ${result }
+
 <u:navbar></u:navbar>
 
 <div class="container-sm">
@@ -83,8 +83,14 @@ result : ${result }
             <td>${board.bno} </td>
             
             <td>
-            <a href="${root }/board/get?bno=${board.bno }">
-            	<c:out value="${board.title}"/>
+            <c:url value="/board/get" var="boardLink">
+            	<c:param value="${board.bno }" name="bno" />
+            	<c:param value="${pageMaker.cri.pageNum }" name="pageNum" />
+            	<c:param value="${pageMaker.cri.amount }" name="amount" />
+            </c:url>
+            
+            <a href="${boardLink }">
+	            <c:out value="${board.title}" />
             </a>
             </td>     
                
@@ -111,7 +117,7 @@ result : ${result }
         </button>
       </div>
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
+        <p>처리가 완료 되었습니다.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -125,18 +131,34 @@ result : ${result }
 		<nav aria-label="Page navigation example">
 		  <ul class="pagination">
 		  
-		  	<c:if test="${pageMaker.prev }">
-		    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+		  	<c:if test="${pageMaker.prev }" >
+		  	<c:url value="/board/list" var="prevLink">
+		  		<c:param value="${pageMaker.startPage - 1 }" name="pageNum" />
+		  		<c:param value="${pageMaker.cri.amount }" name="amount" />
+		  	</c:url>
+		  			  	
+		    <li class="page-item"><a class="page-link" href="${prevLink }">이전</a></li>
 		  	</c:if>
 		  	
 		  	<c:forEach var="num" begin="${pageMaker.startPage }" 
 		  						end="${pageMaker.endPage }">
-		    <li class="page-item"><a class="page-link" href="#">${num }</a></li>
-
+		  		<c:url value="/board/list" var="pageLink" >
+		  			<c:param name="pageNum" value="${num }" />
+		  			<c:param name="pageNum" value="${pageMaker.cri.amount }" />		  			
+		  		</c:url>
+		  						
+		    <li class="${pageMaker.cri.pageNum eq num ? 'page-item active' : 'page-item' }">
+			<a class="page-link" href="${pageLink }">${num }</a></li>
 		  	</c:forEach>
-		    
+		  	
+		  	
 		    <c:if test="${pageMaker.next }">
-		    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+		  	<c:url value="/board/list" var="nextLink">
+		  		<c:param value="${pageMaker.endPage + 1 }" name="pageNum" />
+		  		<c:param value="${pageMaker.cri.amount }" name="amount" />
+		  	</c:url>
+		    
+		    <li class="page-item"><a class="page-link" href="${nextLink }">다음</a></li>
 		    </c:if>
 		    
   		</ul>

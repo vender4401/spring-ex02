@@ -8,6 +8,9 @@ import org.zerock.domain.Criteria;
 
 public interface BoardMapper {
 
+	public int getTotalCount(Criteria cri);
+	// SELECT conut(*) FROM tbl_board
+	
 //	@Select("SELECT * FROM tbl_board WHERE bno > 0")
 	public List<BoardVO> getlist();
 	

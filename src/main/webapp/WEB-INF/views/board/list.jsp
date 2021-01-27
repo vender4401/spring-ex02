@@ -87,6 +87,8 @@
             	<c:param value="${board.bno }" name="bno" />
             	<c:param value="${pageMaker.cri.pageNum }" name="pageNum" />
             	<c:param value="${pageMaker.cri.amount }" name="amount" />
+            	<c:param value="${pageMaker.cri.type }" name="type"	/>
+            	<c:param value="${pageMaker.cri.keyword }" name="keyword" />
             </c:url>
             
             <a href="${boardLink }">
@@ -135,6 +137,8 @@
 		  	<c:url value="/board/list" var="prevLink">
 		  		<c:param value="${pageMaker.startPage - 1 }" name="pageNum" />
 		  		<c:param value="${pageMaker.cri.amount }" name="amount" />
+		  		<c:param name="type" value="${pageMaker.cri.type }"/>
+		  		<c:param name="keyword" value="${pageMaker.cri.keyword }"/>	
 		  	</c:url>
 		  			  	
 		    <li class="page-item"><a class="page-link" href="${prevLink }">이전</a></li>
@@ -144,7 +148,9 @@
 		  						end="${pageMaker.endPage }">
 		  		<c:url value="/board/list" var="pageLink" >
 		  			<c:param name="pageNum" value="${num }" />
-		  			<c:param name="pageNum" value="${pageMaker.cri.amount }" />		  			
+		  			<c:param name="pageNum" value="${pageMaker.cri.amount }" />	
+		  			<c:param name="type" value="${pageMaker.cri.type }"/>
+		  			<c:param name="keyword" value="${pageMaker.cri.keyword }"/>		  				  			
 		  		</c:url>
 		  						
 		    <li class="${pageMaker.cri.pageNum eq num ? 'page-item active' : 'page-item' }">
@@ -156,6 +162,8 @@
 		  	<c:url value="/board/list" var="nextLink">
 		  		<c:param value="${pageMaker.endPage + 1 }" name="pageNum" />
 		  		<c:param value="${pageMaker.cri.amount }" name="amount" />
+		  		<c:param name="type" value="${pageMaker.cri.type }"/>
+		  		<c:param name="keyword" value="${pageMaker.cri.keyword }"/>	
 		  	</c:url>
 		    
 		    <li class="page-item"><a class="page-link" href="${nextLink }">다음</a></li>

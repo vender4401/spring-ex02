@@ -20,9 +20,8 @@
 <script>
 $(document).ready(function() {
 	$("#btn-1").click(function() {
-		$.ajax({
+		$.ajax("/replies/new", {
 			type: "post",
-			url: "/replies/new",
 			contentType: "application/json",
 			data: '{"bno":326, "reply":"새 댓글~", "replyer":"yoonkwan"}',
 			complete: function(jqXHR, status) {
@@ -33,9 +32,8 @@ $(document).ready(function() {
 	})
 	
 	$("#btn-2").click(function() {
-		$.ajax({
+		$.ajax("/replies/new", {
 			type: "post",
-			url: "/replies/new",
 			contentType: "application/json",
 			data: '{"bno":, "reply":"", "replyer":"yoonkwan"}', 
 			//bno값과 reply값을 넣지 않음 // 데이터베이스에 NOT NULL로 테이블 생성했기에 에러가 출력됨
@@ -47,65 +45,76 @@ $(document).ready(function() {
 	})
 	
 	$("#btn-3").click(function() {
-		$.ajax({
+		$.ajax("/replies/new", {
 			type: "post",
-			url: "/replies/new",
 			contentType: "application/json",
-			data: '{"bno":326, "reply":"ㅁㅁ", "replyer":"yoonkwan"}',
-			complete: function(jqXHR, status) {
-				if(status === "success") {
-					console.log("등록 성공")
-					console.log(jqXHR.responseText);
-				} else if (status === 'error') {
-					console.log("등록 실패")
-				}
-			}
-		})
+			data: '{"bno":249, "reply":"ㅁㅁ", "replyer":"yoonkwan"}',
+		}).done(function(data, status, xhr) {
+			console.log("등록 성공")
+			//console.log(jqXHR.responseText);
+			console.log(data);			
+			console.log(xhr);			
+		}).fail(function() {
+			console.log("등록 실패");
+		});
 	})
 	
 	$("#btn-4").click(function() {
-		$.ajax({
+		$.ajax("/replies/pages/326/1", {
 			type: "GET",
-			url: "/replies/pages/326/1",
-			complete: function(jqXHR, status) {
-				if(status === "success") {
-					console.log(jqXHR.responseText);
-				}
-			}
-		})
+		}).done(function(data, status, xhr) {
+			console.log("등록 성공")
+			//console.log(jqXHR.responseText);
+			console.log(data);			
+			console.log(xhr);			
+		}).fail(function() {
+			console.log("등록 실패");
+		});
 	})
 	
 	$("#btn-5").click(function() {
-		$.ajax({
+		$.ajax("/replies/46", {
 			type: "PUT",
-			url: "/replies/41",
 			contentType: "application/json",
-			data: '{"reply":"json수정 1"}',
-			complete: function(jqXHR, status) {
-				if(status === "success") {
-					console.log(jqXHR.responseText);
-				}
-			}
-		})
+			data: '{"reply":"json수정 122"}',		
+		}).done(function(data, status, xhr) {
+			console.log("수정 성공")
+			//console.log(jqXHR.responseText);
+			console.log(data);			
+			console.log(xhr);			
+		}).fail(function() {
+			console.log("수정 실패");
+		});
 	})
 	
 	$("#btn-6").click(function() {
-		$.ajax({
+		$.ajax("/replies/44", {
 			type: "DELETE",
-			url: "/replies/41",
-			complete: function(jqXHR, status) {
-				if(status === "success") {
-					console.log(jqXHR.responseText);
-				}
-			}
+		}).done(function(data, status, xhr) {
+			console.log("삭제 성공")
+			//console.log(jqXHR.responseText);
+			console.log(data);			
+			console.log(xhr);			
+		}).fail(function() {
+			console.log("삭제 실패");
+		});
+	})	
+	
+	$("#btn-7").click(function() {
+		$.ajax("/replies/96", {
+			type: "GET"			
+		}).done(function(data) {
+			console.log(data);
 		})
 	})
 	
+	
 })
+
 </script>
 </head>
 <body>
-<h1>AJAX ex2</h1>
+<h1>AJAX ex5</h1>
 
 <div>
 <button id="btn-1">댓글 등록 성공 버튼</button>
@@ -129,6 +138,10 @@ $(document).ready(function() {
 
 <div>
 <button id="btn-6">댓글 삭제</button>
+</div>
+
+<div>
+<button id="btn-7">댓글 가져오기</button>
 </div>
 
 </body>

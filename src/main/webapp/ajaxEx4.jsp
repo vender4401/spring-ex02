@@ -51,61 +51,66 @@ $(document).ready(function() {
 			type: "post",
 			url: "/replies/new",
 			contentType: "application/json",
-			data: '{"bno":326, "reply":"ㅁㅁ", "replyer":"yoonkwan"}',
-			complete: function(jqXHR, status) {
-				if(status === "success") {
-					console.log("등록 성공")
-					console.log(jqXHR.responseText);
-				} else if (status === 'error') {
-					console.log("등록 실패")
-				}
-			}
-		})
+			data: '{"bno":249, "reply":"ㅁㅁ", "replyer":"yoonkwan"}',
+		}).done(function(data, status, xhr) {
+			console.log("등록 성공")
+			//console.log(jqXHR.responseText);
+			console.log(data);			
+			console.log(xhr);			
+		}).fail(function() {
+			console.log("등록 실패");
+		});
 	})
 	
 	$("#btn-4").click(function() {
 		$.ajax({
 			type: "GET",
 			url: "/replies/pages/326/1",
-			complete: function(jqXHR, status) {
-				if(status === "success") {
-					console.log(jqXHR.responseText);
-				}
-			}
-		})
+		}).done(function(data, status, xhr) {
+			console.log("등록 성공")
+			//console.log(jqXHR.responseText);
+			console.log(data);			
+			console.log(xhr);			
+		}).fail(function() {
+			console.log("등록 실패");
+		});
 	})
 	
 	$("#btn-5").click(function() {
 		$.ajax({
 			type: "PUT",
-			url: "/replies/41",
+			url: "/replies/46",
 			contentType: "application/json",
-			data: '{"reply":"json수정 1"}',
-			complete: function(jqXHR, status) {
-				if(status === "success") {
-					console.log(jqXHR.responseText);
-				}
-			}
-		})
+			data: '{"reply":"json수정 122"}',		
+		}).done(function(data, status, xhr) {
+			console.log("수정 성공")
+			//console.log(jqXHR.responseText);
+			console.log(data);			
+			console.log(xhr);			
+		}).fail(function() {
+			console.log("수정 실패");
+		});
 	})
 	
 	$("#btn-6").click(function() {
 		$.ajax({
 			type: "DELETE",
-			url: "/replies/41",
-			complete: function(jqXHR, status) {
-				if(status === "success") {
-					console.log(jqXHR.responseText);
-				}
-			}
-		})
-	})
-	
+			url: "/replies/44",
+		}).done(function(data, status, xhr) {
+			console.log("삭제 성공")
+			//console.log(jqXHR.responseText);
+			console.log(data);			
+			console.log(xhr);			
+		}).fail(function() {
+			console.log("삭제 실패");
+		});
+	})	
 })
+
 </script>
 </head>
 <body>
-<h1>AJAX ex2</h1>
+<h1>AJAX ex4</h1>
 
 <div>
 <button id="btn-1">댓글 등록 성공 버튼</button>

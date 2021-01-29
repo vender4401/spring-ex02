@@ -144,7 +144,6 @@ replyService.get(109, function(data) {
 				$("#replyer-modify-delete").val(data.replyer);
 				$("#modify-delete-reply-modal").modal("show");
 			});
-
 		});
 		
 		// 수정 버튼 이벤트 처리
@@ -191,13 +190,13 @@ replyService.get(109, function(data) {
 	
 <div class="container-sm">
 	<div class="row">
-		<div class="col-12 col-sm-6 offset-sm-3">
+		<div class="col-12 col-lg-6 offset-lg-3">
 			<h1>게시물 보기</h1>
 		</div>
 	</div>
 	
 	<div class="row">
-		<div class="col-12 col-sm-6 offset-sm-3">		
+		<div class="col-12 col-lg-6 offset-lg-3">		
 	<%-- 
 		<form action="${pageContext.request.contextPath }/board/register">
 	 --%>	
@@ -250,7 +249,7 @@ replyService.get(109, function(data) {
 	<!-- 댓글 목록 -->
 	<div class="container-sm mt-3">
 		<div class="row">
-			<div class="col-12 col-sm-6 offset-sm-3">
+			<div class="col-12 col-lg-6 offset-lg-3">
 				
 				<div class="card">
 					<div class="card-header d-flex justify-content-between align-items-center">
